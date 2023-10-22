@@ -1,5 +1,6 @@
 // by LCP, BRAP
 // 22.10.2023
+
 public class HappyNumbers {
     public static boolean isHappy(int n) {
         // This method checks if a number is a happy number.
