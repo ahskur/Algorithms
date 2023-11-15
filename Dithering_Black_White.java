@@ -4,22 +4,13 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
-public class Dithering {
+public class Dithering_Black_White {
 
-    // This array can be altered to make different types of images
-    private static final char Graustufe[] = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\"^`'. ".toCharArray();
+    // Define the Grayscale characters and thresholds
+    private static final char[] Graustufe = {' ', '░', '▒', '▓', '■'};
     private static final int GraustufeLen = Graustufe.length;
 
-    /**
-     *  Uses length of Grayscale array, the array itself and image path given from command line
-     *  to read each pixel contained in the image and transform the color from RGB to one in the grayscale array given
-     *  Grayscale can be edited to obtain different types of images
-     * @param GraustufeLen Length of grayscale scala
-     * @param Graustufe Grayscale, as array of characters
-     * @param path Path to image
-     **/
-    private static void readImage(int GraustufeLen, char[] Graustufe, String path) {
-
+    private static void readImage(int GraustufeLen, char[] Graustufe, boolean reverseOrder, String path) {
         BufferedImage img = null;
 
         try {
@@ -51,6 +42,11 @@ public class Dithering {
                 double gray = 0.30*rr + 0.59*gg + 0.11*bb;
                 // Subtract the smallest possible amount from gray using ulp(1.0) so white can be true white
                 int CharIndex = (int)((GraustufeLen) * (gray-Math.ulp(1.0)));
+
+                if (reverseOrder) {
+                    // Reverse the order of character mapping
+                    CharIndex = GraustufeLen - 1 - CharIndex;
+                }
                 System.out.print(Graustufe[CharIndex]);
             }
             System.out.println();
@@ -64,8 +60,9 @@ public class Dithering {
             System.exit(1);
         }
         String path = args[0];
-        readImage(GraustufeLen,Graustufe, path);
-        // Exit after program run once
-        System.exit(0);
+        // Choose whether to print white on black or black on white
+        boolean reverseOrder = true; // Set to true for black on white
+
+        readImage(GraustufeLen, Graustufe, reverseOrder, path);
     }
 }
