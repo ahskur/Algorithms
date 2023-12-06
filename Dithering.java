@@ -5,21 +5,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Dithering {
-
-    // This array can be altered to make different types of images
-    private static final char Graustufe[] = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\"^`'. ".toCharArray();
-    private static final int GraustufeLen = Graustufe.length;
-
-    /**
-     *  Uses length of Grayscale array, the array itself and image path given from command line
-     *  to read each pixel contained in the image and transform the color from RGB to one in the grayscale array given
-     *  Grayscale can be edited to obtain different types of images
-     * @param GraustufeLen Length of grayscale scala
-     * @param Graustufe Grayscale, as array of characters
-     * @param path Path to image
-     **/
     private static void readImage(int GraustufeLen, char[] Graustufe, String path) {
-
+        /**
+         *@param readImage uses length of Grayscale array, the array itself and image path given from command line
+         *                 to read each pixel contained in the image and transform the color from RGB to one in the grayscale array given
+         *                 Grayscale can be edited to obtain different types of images
+         *@return Transformed Image
+         **/
         BufferedImage img = null;
 
         try {
@@ -35,7 +27,7 @@ public class Dithering {
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                int value = img.getRGB(j, i);
+                int value = img.getRGB(i, j);
 
                 Color c = new Color(value);
                 int r, g, b;
@@ -49,8 +41,7 @@ public class Dithering {
 
                 // Set the 'weight' of each color when creating the gray color for substitution
                 double gray = 0.30*rr + 0.59*gg + 0.11*bb;
-                // Subtract the smallest possible amount from gray using ulp(1.0) so white can be true white
-                int CharIndex = (int)((GraustufeLen) * (gray-Math.ulp(1.0)));
+                int CharIndex = (int)((GraustufeLen-1) * (gray));
                 System.out.print(Graustufe[CharIndex]);
             }
             System.out.println();
@@ -64,6 +55,9 @@ public class Dithering {
             System.exit(1);
         }
         String path = args[0];
+        // This array can be altered to make different types of images
+        char Graustufe[] = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\"^`'. ".toCharArray();
+        int GraustufeLen = Graustufe.length;
         readImage(GraustufeLen,Graustufe, path);
         // Exit after program run once
         System.exit(0);

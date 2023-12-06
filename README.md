@@ -2,13 +2,13 @@
 
 ## Overview
 
-Welcome to the Algorithms Learning Repository! This repository is dedicated to storing and sharing the algorithms that I'm writing as part of my learning journey in the world of algorithms and data structures.
+Welcome to the Algorithms Learning Repository! This repository is dedicated to storing and sharing the algorithms that I'm writing for Uni as part of my learning journey in the world of algorithms and data structures.
 
 Algorithms are the foundation of computer science, and they play a crucial role in solving a wide range of problems. This repository is a place for me to practice, experiment, and document various algorithms I encounter, whether it's sorting algorithms, searching algorithms, or any other interesting computational problem.
 
 The primary goals of this repository are:
 
-- Documenting my algorithmic learning journey.
+- Documenting my learning journey.
 - Providing code examples.
 - Encouraging collaboration and knowledge sharing.
 
